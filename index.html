@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harold Bonilla - Desarrollo Java Enterprise</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #17a2b8;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --border-radius: 5px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            height: auto;
+        }
+
+        .header-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 40%;
+            /* Ajusta este valor para controlar la altura proporcionalmente al ancho */
+        }
+
+        header:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/img/01-mvc_arquitectura_java.jpg');
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        .tech-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 40px 0 20px;
+        }
+
+        .tech-logo {
+            width: 80px;
+            height: auto;
+            margin: 10px 20px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .tech-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .header-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-bottom: 20px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: var(--primary-color);
+            margin: 0 auto 20px;
+        }
+
+        .header-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .header-content p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.2px;
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid #e9ecef;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 80px 0;
+            background-color: #f4f7f9;
+        }
+
+        .exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        .exp-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .company {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .period {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .job-title {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .skill-category {
+            margin-bottom: 40px;
+        }
+
+        .skill-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .skill-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .header-content p {
+                font-size: 1.1rem;
+            }
+
+            .exp-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .tech-logo {
+                width: 50px;
+                margin: 8px;
+            }
+
+            /* Ajustes específicos para la imagen de fondo en pantallas pequeñas */
+            .header-wrapper {
+                padding-top: 55%;
+                /* Aumentamos un poco la relación de aspecto en móviles */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-wrapper">
+            <div class="header-content">
+                <div class="profile-img">HB</div>
+                <h1>Harold M. Bonilla López</h1>
+                <p>Desarrollador Java Enterprise con más de 15 años de experiencia en sistemas financieros, bancarios y
+                    empresariales</p>
+                <div>
+                    <a href="#contact" class="btn btn-primary">Contáctame</a>
+                    <a href="#services" class="btn">Ver Servicios</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Servicios Especializados</h2>
+                <p>Soluciones tecnológicas adaptadas a las necesidades de su negocio</p>
+            </div>
+
+            <div class="tech-logos">
+                <img src="/img/html5-badge-h-solo.png" alt="Logo de HTML5" class="tech-logo">
+                <img src="/img/angular.svg" alt="Logo de Angular 18" class="tech-logo">
+                <img src="/img/Java_programming_language_logo.svg.png" alt="Logo de Java" class="tech-logo">
+                <img src="/img/spring-2.svg" alt="Logo de Spring Framework" class="tech-logo">
+                <img src="/img/spring-boot.svg" alt="Logo de Spring Boot" class="tech-logo">
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Desarrollo Java Enterprise</h3>
+                    <p>Aplicaciones empresariales robustas utilizando Java EE, EJB, JPA, Web Services y JSF. Sistemas
+                        escalables diseñados para soportar el crecimiento de su negocio.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Sistemas Financieros</h3>
+                    <p>Experiencia en banca digital, sistemas contables, puestos de bolsa y fondos de inversión.
+                        Automatización de procesos financieros complejos.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3>Integración de Sistemas</h3>
+                    <p>Conexión e integración entre diferentes aplicaciones y procesos tecnológicos. Soluciones que
+                        permiten la comunicación efectiva entre sus sistemas.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Bases de Datos</h3>
+                    <p>Diseño y optimización de bases de datos PostgreSQL, Oracle, DB2 y SQL Server. Creación de
+                        consultas eficientes para reportes críticos del negocio.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Desarrollo Web</h3>
+                    <p>Creación de interfaces de usuario modernas con HTML5, JSF, PrimeFaces.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏆</div>
+                    <h3>Gestión de Proyectos Ágiles</h3>
+                    <p>Scrum Master certificado. Implementación de metodologías ágiles para asegurar el éxito de su
+                        proyecto.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experiencia Profesional</h2>
+                <p>Una trayectoria orientada a la excelencia en el desarrollo de software</p>
+            </div>
+
+            <div class="exp-grid">
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="company">Hygienaction</div>
+                        <div class="period">2023 - 2024</div>
+                    </div>
+                    <div class="job-title">Ingeniero de Software Senior - Full Stack</div>
+                    <p>Desarrollo de software financiero contable e inventario. Automatización de procesos de venta y
+                        préstamo de servicios utilizando Java Enterprise Edition y PostgreSQL.</p>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="company">Bac Credomatic</div>
+                        <div class="period">2021 - 2023</div>
+                    </div>
+                    <div class="job-title">Analista Programador II</div>
+                    <p>Automatización de procesos contables en entorno bancario. Implementación de soluciones
+                        financieras utilizando IBM i y RPG.</p>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="company">SCOTIABANK</div>
+                        <div class="period">2014 - 2018</div>
+                    </div>
+                    <div class="job-title">Desarrollador Java</div>
+                    <p>Desarrollo de aplicación financiera empresarial para manejo de clientes y portafolios de
+                        inversión. Migración exitosa de Oracle a DB2.</p>
+                </div>
+
+                <div class="exp-card">
+                    <div class="exp-header">
+                        <div class="company">BANCO PROMERICA</div>
+                        <div class="period">2010</div>
+                    </div>
+                    <div class="job-title">Ingeniero de Software Senior</div>
+                    <p>Desarrollo de aplicaciones web para emisiones estandarizadas y transacciones financieras
+                        utilizando Java EE, JSF y Oracle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Habilidades Técnicas</h2>
+                <p>Un conjunto de competencias adaptadas a las necesidades empresariales modernas</p>
+            </div>
+
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Front-End</h3>
+                    <div class="skill-item">Angular 18</div>
+                    <div class="skill-item">HTML5 (HTML, CSS, JavaScript)</div>
+                    <div class="skill-item">JavaServer Faces, PrimeFaces (https://www.primefaces.org/apollo/)</div>
+                    <div class="skill-item">JavaServer Faces, ICEFaces</div>
+                    <div class="skill-item">JSP, JSTL</div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Back-End</h3>
+                    <div class="skill-item">Java 1.4, Java 8, Java 11+</div>
+                    <div class="skill-item">Java Enterprise Edition</div>
+                    <div class="skill-item">EJB, JPA, Web Services</div>
+                    <div class="skill-item">Control de Versiones: Git, GitHub</div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Bases de Datos</h3>
+                    <div class="skill-item">PostgreSQL (Diseño y creación)</div>
+                    <div class="skill-item">DB2 (Creación de consultas para reportes)</div>
+                    <div class="skill-item">Oracle, PL/SQL (Creación de consultas para reportes)</div>
+                    <div class="skill-item">Microsoft SQL Server, Transact SQL (Creación de consultas para reportes)
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Servidores</h3>
+                    <div class="skill-item">GlassFish Server</div>
+                    <div class="skill-item">Apache TomEE</div>
+                </div>
+                <div class="skill-category">
+                    <h3>Entornos de Control</h3>
+                    <div class="skill-item">Metodologías Ágiles (Scrum)</div>
+                    <div class="skill-item">JIRA</div>
+                </div>
+                <div class="skill-category">
+                    <h3>IDE (Entorno de Desarrollo Integrado)</h3>
+                    <div class="skill-item">Visual Studio Code</div>
+                    <div class="skill-item">IntelliJ IDEA</div>
+                    <div class="skill-item">eclipse - Enterprise Java and Web Developers - 2023-12</div>
+                    <div class="skill-item">NetBeans</div>
+                    <div class="skill-item">WebSphere Studio Application Developer (Windows) Versión: 5.1.1, 8.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2>¿Listo para impulsar su negocio con tecnología de vanguardia?</h2>
+            <p>Contácteme hoy para discutir cómo puedo ayudarle a alcanzar sus objetivos tecnológicos</p>
+            <a href="mailto:hmbonilla@gmail.com" class="btn">Solicitar Consulta Gratuita</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <a href="tel:+50687356220">+506 8735-6220</a>
+                <a href="mailto:hmbonilla@gmail.com">hmbonilla@gmail.com</a>
+                <a href="https://www.linkedin.com/in/harold-m-bonilla-l%C3%B3pez-59b08124/" target="_blank">LinkedIn</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Harold M. Bonilla López. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
